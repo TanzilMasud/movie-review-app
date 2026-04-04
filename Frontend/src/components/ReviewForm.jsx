@@ -26,7 +26,7 @@ function ReviewForm({ movie, onReviewAdded }) {
         setLoading(true);
 
         try {
-            const res = await axios.post("http://127.0.0.1:5000/api/review", {
+            const res = await axios.post("https://movie-review-app-bzkp.onrender.com/api/review", {
                 movie,
                 review,
                 rating,

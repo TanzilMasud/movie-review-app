@@ -10,7 +10,7 @@ function SearchBar({ onSearch }) {
         setLoading(true);
         try {
             const res = await axios.get(
-                `http://127.0.0.1:5000/api/search?movie=${movie.trim()}`
+                `https://movie-review-app-bzkp.onrender.com/api/search?movie=${movie.trim()}`
             );
             onSearch(res.data, movie.trim());
         } catch (err) {
