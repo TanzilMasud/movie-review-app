@@ -1,13 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch, onLoading }) {
     const [movie, setMovie] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSearch = async () => {
         if (!movie.trim()) return;
         setLoading(true);
+        onLoading(true); // tell App.jsx loading started
         try {
             const res = await axios.get(
                 `https://movie-review-app-bzkp.onrender.com/api/search?movie=${movie.trim()}`
@@ -17,6 +18,7 @@ function SearchBar({ onSearch }) {
             console.error(err);
         } finally {
             setLoading(false);
+            onLoading(false); // tell App.jsx loading done
         }
     };
 

@@ -5,6 +5,7 @@ import ReviewForm from "./components/ReviewForm";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MovieInfo from "./components/MovieInfo";
+import Skeleton from "./components/Skeleton";
 import "./App.css";
 
 const FLOATING_POSTERS = [
@@ -24,6 +25,7 @@ function App() {
   const [searchResult, setSearchResult] = useState(null);
   const [searchedMovie, setSearchedMovie] = useState("");
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = (result, movie) => {
     setSearchResult(result);
@@ -68,10 +70,13 @@ function App() {
         </div>
 
         {/* Search */}
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={handleSearch} onLoading={setIsLoading} />
+
+        {/* Loading Skeleton */}
+        {isLoading && <Skeleton />}
 
         {/* Results */}
-        {searchResult && (
+        {!isLoading && searchResult && (
           <div className="results">
 
             {/* CASE 1: Movie existed */}
