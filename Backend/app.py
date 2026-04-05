@@ -115,17 +115,100 @@ def get_poster_omdb(movie_name):
 
 
 def get_movie_poster(movie_name):
-    # Try TMDB first (faster, better for Indian movies)
     poster = get_poster_tmdb(movie_name)
     if poster:
         return poster
-
-    # Fallback to OMDB
     poster = get_poster_omdb(movie_name)
     if poster:
         return poster
-
     return None
+
+# ==============================
+# FETCH MOVIE INFO (genre, year, plot, imdb rating)
+# ==============================
+
+
+def get_movie_info(movie_name):
+    info = {
+        "genre": None,
+        "year": None,
+        "plot": None,
+        "imdb_rating": None,
+        "language": None
+    }
+
+    # Try TMDB first
+    try:
+        search_url = "https://api.themoviedb.org/3/search/movie"
+        params = {
+            "api_key": TMDB_API_KEY,
+            "query": movie_name,
+            "include_adult": False,
+            "language": "en-US",
+            "page": 1
+        }
+        res = requests.get(search_url, params=params, timeout=5)
+        data = res.json()
+        results = data.get("results", [])
+
+        if results:
+            # Get most popular result
+            movie = sorted(results, key=lambda x: x.get(
+                "popularity", 0), reverse=True)[0]
+            movie_id = movie.get("id")
+
+            # Get detailed info
+            detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+            detail_params = {
+                "api_key": TMDB_API_KEY,
+                "language": "en-US"
+            }
+            detail_res = requests.get(
+                detail_url, params=detail_params, timeout=5)
+            detail = detail_res.json()
+
+            # Extract genres
+            genres = detail.get("genres", [])
+            if genres:
+                info["genre"] = ", ".join([g["name"] for g in genres[:3]])
+
+            # Extract year
+            release_date = detail.get("release_date", "")
+            if release_date:
+                info["year"] = release_date[:4]
+
+            # Extract plot
+            overview = detail.get("overview", "")
+            if overview:
+                info["plot"] = overview[:200] + \
+                    "..." if len(overview) > 200 else overview
+
+            # Extract language
+            lang = detail.get("original_language", "")
+            if lang:
+                info["language"] = lang.upper()
+
+    except Exception as e:
+        print(f"TMDB info error: {e}")
+
+    # Try OMDB for IMDB rating
+    try:
+        url = f"http://www.omdbapi.com/?t={movie_name}&apikey={OMDB_API_KEY}"
+        res = requests.get(url, timeout=5)
+        data = res.json()
+        if data.get("Response") == "True":
+            info["imdb_rating"] = data.get("imdbRating", None)
+            # Fill missing info from OMDB if TMDB didn't have it
+            if not info["genre"] and data.get("Genre") not in [None, "N/A"]:
+                info["genre"] = data.get("Genre")
+            if not info["year"] and data.get("Year") not in [None, "N/A"]:
+                info["year"] = data.get("Year")
+            if not info["plot"] and data.get("Plot") not in [None, "N/A"]:
+                info["plot"] = data.get("Plot")
+    except Exception:
+        pass
+
+    return info
 
 # ==============================
 # ROUTES
@@ -162,8 +245,9 @@ def search_movie():
             rows = cur.fetchall()
         conn.close()
 
-        # Fetch poster — TMDB first, OMDB fallback
+        # Fetch poster and movie info
         poster = get_movie_poster(movie)
+        movie_info = get_movie_info(movie)
 
         if rows:
             reviews = [
@@ -175,6 +259,7 @@ def search_movie():
                     "exists": True,
                     "movie": movie.title(),
                     "poster": poster,
+                    "info": movie_info,
                     "reviews": reviews
                 }, ensure_ascii=False),
                 mimetype='application/json'
@@ -185,6 +270,7 @@ def search_movie():
                     "exists": False,
                     "movie": movie.title(),
                     "poster": poster,
+                    "info": movie_info,
                     "reviews": []
                 }, ensure_ascii=False),
                 mimetype='application/json'
