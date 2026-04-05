@@ -5,13 +5,136 @@
 }
 
 body {
-  background: #0f0f0f;
-  color: #f1f1f1;
+  background: #fafafa;
+  color: #1a1a1a;
   font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==============================
+   FLOATING BACKGROUND
+============================== */
+.floating-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-poster {
+  position: absolute;
+  border-radius: 8px;
+  animation: floatUp linear infinite;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Each poster has different position, size and speed */
+.floating-poster-1 {
+  left: 5%;
+  width: 100px;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.floating-poster-2 {
+  left: 12%;
+  width: 120px;
+  animation-duration: 22s;
+  animation-delay: -10s;
+}
+
+.floating-poster-3 {
+  left: 22%;
+  width: 90px;
+  animation-duration: 16s;
+  animation-delay: -3s;
+}
+
+.floating-poster-4 {
+  left: 33%;
+  width: 110px;
+  animation-duration: 20s;
+  animation-delay: -8s;
+}
+
+.floating-poster-5 {
+  left: 45%;
+  width: 100px;
+  animation-duration: 24s;
+  animation-delay: -15s;
+}
+
+.floating-poster-6 {
+  left: 55%;
+  width: 120px;
+  animation-duration: 19s;
+  animation-delay: -7s;
+}
+
+.floating-poster-7 {
+  left: 65%;
+  width: 95px;
+  animation-duration: 21s;
+  animation-delay: -12s;
+}
+
+.floating-poster-8 {
+  left: 75%;
+  width: 110px;
+  animation-duration: 17s;
+  animation-delay: -4s;
+}
+
+.floating-poster-9 {
+  left: 83%;
+  width: 120px;
+  animation-duration: 23s;
+  animation-delay: -9s;
+}
+
+.floating-poster-10 {
+  left: 92%;
+  width: 90px;
+  animation-duration: 15s;
+  animation-delay: -6s;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(110vh) rotate(-5deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.25;
+  }
+
+  85% {
+    opacity: 0.25;
+  }
+
+  100% {
+    transform: translateY(-20vh) rotate(5deg);
+    opacity: 0;
+  }
+}
+
+/* ==============================
+   MAIN CONTENT
+============================== */
+.app {
+  position: relative;
   min-height: 100vh;
 }
 
-.app {
+.content {
+  position: relative;
+  z-index: 1;
   max-width: 900px;
   margin: 0 auto;
   padding: 40px 20px;
@@ -37,7 +160,7 @@ body {
 }
 
 .header p {
-  color: #888;
+  color: #555;
   font-size: 0.95rem;
 }
 
@@ -52,12 +175,14 @@ body {
   flex: 1;
   padding: 12px 16px;
   border-radius: 10px;
-  border: 1px solid #333;
-  background: #1a1a1a;
-  color: #f1f1f1;
+  border: 1px solid #ddd;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1a1a1a;
   font-size: 1rem;
   outline: none;
   transition: border 0.3s;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
 .search-bar input:focus {
@@ -87,9 +212,9 @@ body {
 
 /* Banners */
 .exists-banner {
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(34, 197, 94, 0.1);
   border: 1px solid #22c55e;
-  color: #22c55e;
+  color: #15803d;
   padding: 12px 16px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -97,9 +222,9 @@ body {
 }
 
 .new-banner {
-  background: rgba(59, 130, 246, 0.15);
+  background: rgba(59, 130, 246, 0.1);
   border: 1px solid #3b82f6;
-  color: #3b82f6;
+  color: #1d4ed8;
   padding: 12px 16px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -110,18 +235,20 @@ body {
   font-size: 1rem;
   font-weight: 600;
   margin: 20px 0 10px;
-  color: #f1f1f1;
+  color: #1a1a1a;
 }
 
 /* Review Card */
 .review-card {
   display: flex;
   gap: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .card-left {
@@ -135,30 +262,31 @@ body {
 .card-right h3 {
   margin-bottom: 12px;
   font-size: 1.1rem;
+  color: #1a1a1a;
 }
 
 .review-divider {
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
   margin: 10px 0;
 }
 
 .review-text {
   font-size: 0.9rem;
   margin-bottom: 4px;
-  color: #d1d5db;
+  color: #333;
 }
 
 .review-meta {
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: #666;
 }
 
 /* Poster placeholder */
 .poster-placeholder {
   width: 80px;
   height: 120px;
-  background: #1f2937;
+  background: #e5e7eb;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -176,26 +304,28 @@ body {
 
 /* Review Form */
 .review-form {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   padding: 24px;
   margin-top: 10px;
-  position: relative;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .review-form h3 {
   margin-bottom: 16px;
   font-size: 1.1rem;
+  color: #1a1a1a;
 }
 
 .review-form textarea {
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid #333;
-  background: #1a1a1a;
-  color: #f1f1f1;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #1a1a1a;
   font-size: 0.95rem;
   resize: vertical;
   outline: none;
@@ -240,7 +370,7 @@ body {
 }
 
 .star-rating-section label {
-  color: #d1d5db;
+  color: #444;
   font-size: 0.95rem;
 }
 
@@ -252,7 +382,7 @@ body {
 .star {
   font-size: 2rem;
   cursor: pointer;
-  color: #444;
+  color: #bbb;
   transition: color 0.15s, transform 0.15s;
   user-select: none;
 }
@@ -283,27 +413,27 @@ body {
   font-size: 0.95rem;
   font-weight: 500;
   z-index: 9999;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   animation: slideIn 0.3s ease, fadeOut 0.4s ease 2.6s forwards;
   max-width: 360px;
 }
 
 .toast-success {
-  background: #14532d;
+  background: #f0fdf4;
   border: 1px solid #22c55e;
-  color: #22c55e;
+  color: #15803d;
 }
 
 .toast-error {
-  background: #450a0a;
+  background: #fef2f2;
   border: 1px solid #ef4444;
-  color: #ef4444;
+  color: #b91c1c;
 }
 
 .toast-warning {
-  background: #451a03;
+  background: #fffbeb;
   border: 1px solid #f59e0b;
-  color: #f59e0b;
+  color: #b45309;
 }
 
 @keyframes slideIn {
@@ -311,6 +441,7 @@ body {
     opacity: 0;
     transform: translateX(60px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -321,6 +452,7 @@ body {
   from {
     opacity: 1;
   }
+
   to {
     opacity: 0;
   }
@@ -365,4 +497,109 @@ body {
     left: 12px;
     max-width: unset;
   }
+}
+
+/* ==============================
+   NAVBAR
+============================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ff4b2b;
+}
+
+.navbar-logo span {
+  background: linear-gradient(90deg, #ff4b2b, #ff416c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #ff4b2b;
+}
+
+/* ==============================
+   FOOTER
+============================== */
+.footer {
+  margin-top: 60px;
+  background: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ff4b2b;
+  margin-bottom: 8px;
+}
+
+.footer-tagline {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.footer-link {
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: #ff4b2b;
+}
+
+.footer-copy {
+  color: #aaa;
+  font-size: 0.8rem;
 }
