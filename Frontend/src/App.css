@@ -603,3 +603,100 @@ body {
   color: #aaa;
   font-size: 0.8rem;
 }
+
+/* ==============================
+   REVIEW CARD ENHANCEMENTS
+============================== */
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.card-title-row h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+}
+
+.review-count-badge {
+  background: linear-gradient(90deg, #ff4b2b, #ff416c);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.avg-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.avg-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.avg-rating-text {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.card-divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 10px 0;
+}
+
+/* ==============================
+   MOVIE INFO CARD
+============================== */
+.movie-info-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.movie-info-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.info-tag {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.imdb-tag {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+.genre-tag {
+  background: #ede9fe;
+  border-color: #8b5cf6;
+  color: #6d28d9;
+}
+
+.movie-plot {
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.6;
+}

@@ -4,9 +4,9 @@ import ReviewCard from "./components/ReviewCard";
 import ReviewForm from "./components/ReviewForm";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import MovieInfo from "./components/MovieInfo";
 import "./App.css";
 
-// Popular movie posters from TMDB
 const FLOATING_POSTERS = [
   "https://image.tmdb.org/t/p/w200/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
   "https://image.tmdb.org/t/p/w200/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
@@ -64,7 +64,7 @@ function App() {
         {/* Header */}
         <div className="header">
           <h1>🎬 Movie Review System</h1>
-          <p>Search any movie and your review</p>
+          <p>Search any movie and share your review</p>
         </div>
 
         {/* Search */}
@@ -81,6 +81,7 @@ function App() {
                   ✅ Movie already exists! Showing all reviews for{" "}
                   <strong>{searchResult.movie}</strong>
                 </div>
+                <MovieInfo info={searchResult.info} />
                 <ReviewCard
                   movie={searchResult.movie}
                   reviews={searchResult.reviews}
@@ -124,6 +125,7 @@ function App() {
                 <div className="new-banner">
                   🆕 <strong>{searchResult.movie}</strong> is a new movie! Be the first to review it.
                 </div>
+                <MovieInfo info={searchResult.info} />
                 <ReviewForm
                   movie={searchedMovie}
                   onReviewAdded={handleReviewAdded}
@@ -138,6 +140,7 @@ function App() {
                   🎉 Review submitted! Here are all reviews for{" "}
                   <strong>{searchResult.movie}</strong>
                 </div>
+                <MovieInfo info={searchResult.info} />
                 <ReviewCard
                   movie={searchResult.movie}
                   reviews={searchResult.reviews}
