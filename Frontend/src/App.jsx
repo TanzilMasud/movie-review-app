@@ -89,90 +89,89 @@ function App() {
 
             {/* Results */}
             {!isLoading && searchResult && (
-          <div className="results">
+              <div className="results">
 
-            {/* CASE 1: Movie existed */}
-            {searchResult.exists && !reviewSubmitted && (
-              <>
-                <div className="exists-banner">
-                  ✅ Movie already exists! Showing all reviews for{" "}
-                  <strong>{searchResult.movie}</strong>
-                </div>
-                <MovieInfo info={searchResult.info} />
-                <ReviewCard
-                  movie={searchResult.movie}
-                  reviews={searchResult.reviews}
-                  poster={searchResult.poster}
-                />
-                <div className="add-more">➕ Want to add your review too?</div>
-                <ReviewForm
-                  movie={searchedMovie}
-                  onReviewAdded={handleReviewAdded}
-                />
-              </>
-            )}
-
-            {/* CASE 2: New movie */}
-            {!searchResult.exists && !reviewSubmitted && (
-              <>
-                <div className="new-movie-poster">
-                  {searchResult.poster ? (
-                    <img
-                      src={searchResult.poster}
-                      alt={searchResult.movie}
-                      onError={(e) => { e.target.style.display = 'none'; }}
-                      style={{
-                        width: "120px",
-                        height: "180px",
-                        borderRadius: "12px",
-                        objectFit: "cover",
-                        marginBottom: "12px",
-                      }}
+                {/* CASE 1: Movie existed */}
+                {searchResult.exists && !reviewSubmitted && (
+                  <>
+                    <div className="exists-banner">
+                      ✅ Movie already exists! Showing all reviews for{" "}
+                      <strong>{searchResult.movie}</strong>
+                    </div>
+                    <MovieInfo info={searchResult.info} />
+                    <ReviewCard
+                      movie={searchResult.movie}
+                      reviews={searchResult.reviews}
+                      poster={searchResult.poster}
                     />
-                  ) : (
-                    <div className="poster-placeholder" style={{
-                      width: "120px",
-                      height: "180px",
-                      fontSize: "3rem",
-                      borderRadius: "12px",
-                      marginBottom: "12px",
-                    }}>🎬</div>
-                  )}
-                </div>
-                <div className="new-banner">
-                  🆕 <strong>{searchResult.movie}</strong> is a new movie! Be the first to review it.
-                </div>
-                <MovieInfo info={searchResult.info} />
-                <ReviewForm
-                  movie={searchedMovie}
-                  onReviewAdded={handleReviewAdded}
-                />
-              </>
-            )}
+                    <div className="add-more">➕ Want to add your review too?</div>
+                    <ReviewForm
+                      movie={searchedMovie}
+                      onReviewAdded={handleReviewAdded}
+                    />
+                  </>
+                )}
 
-            {/* CASE 3: After submitting */}
-            {reviewSubmitted && (
-              <>
-                <div className="exists-banner">
-                  🎉 Review submitted! Here are all reviews for{" "}
-                  <strong>{searchResult.movie}</strong>
-                </div>
-                <MovieInfo info={searchResult.info} />
-                <ReviewCard
-                  movie={searchResult.movie}
-                  reviews={searchResult.reviews}
-                  poster={searchResult.poster}
-                />
-                <div className="add-more">➕ Want to add another review?</div>
-                <ReviewForm
-                  movie={searchedMovie}
-                  onReviewAdded={handleReviewAdded}
-                />
-              </>
-            )}
+                {/* CASE 2: New movie */}
+                {!searchResult.exists && !reviewSubmitted && (
+                  <>
+                    <div className="new-movie-poster">
+                      {searchResult.poster ? (
+                        <img
+                          src={searchResult.poster}
+                          alt={searchResult.movie}
+                          onError={(e) => { e.target.style.display = 'none'; }}
+                          style={{
+                            width: "120px",
+                            height: "180px",
+                            borderRadius: "12px",
+                            objectFit: "cover",
+                            marginBottom: "12px",
+                          }}
+                        />
+                      ) : (
+                        <div className="poster-placeholder" style={{
+                          width: "120px",
+                          height: "180px",
+                          fontSize: "3rem",
+                          borderRadius: "12px",
+                          marginBottom: "12px",
+                        }}>🎬</div>
+                      )}
+                    </div>
+                    <div className="new-banner">
+                      🆕 <strong>{searchResult.movie}</strong> is a new movie! Be the first to review it.
+                    </div>
+                    <MovieInfo info={searchResult.info} />
+                    <ReviewForm
+                      movie={searchedMovie}
+                      onReviewAdded={handleReviewAdded}
+                    />
+                  </>
+                )}
 
+                {/* CASE 3: After submitting */}
+                {reviewSubmitted && (
+                  <>
+                    <div className="exists-banner">
+                      🎉 Review submitted! Here are all reviews for{" "}
+                      <strong>{searchResult.movie}</strong>
+                    </div>
+                    <MovieInfo info={searchResult.info} />
+                    <ReviewCard
+                      movie={searchResult.movie}
+                      reviews={searchResult.reviews}
+                      poster={searchResult.poster}
+                    />
+                    <div className="add-more">➕ Want to add another review?</div>
+                    <ReviewForm
+                      movie={searchedMovie}
+                      onReviewAdded={handleReviewAdded}
+                    />
+                  </>
+                )}
+              </div>
             )}
-
           </div>
         )}
 
@@ -181,10 +180,10 @@ function App() {
             <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>🏆 Top Rated Movies</h2>
             <p style={{ color: '#555', marginBottom: '20px' }}>The highest rated films according to ReelVibe users.</p>
             <div className="mock-grid" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>The Dark Knight</h3><span>⭐ 4.8 / 5</span></div>
-               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Inception</h3><span>⭐ 4.7 / 5</span></div>
-               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Interstellar</h3><span>⭐ 4.6 / 5</span></div>
-               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Avengers: Endgame</h3><span>⭐ 4.5 / 5</span></div>
+              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>The Dark Knight</h3><span>⭐ 4.8 / 5</span></div>
+              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Inception</h3><span>⭐ 4.7 / 5</span></div>
+              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Interstellar</h3><span>⭐ 4.6 / 5</span></div>
+              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Avengers: Endgame</h3><span>⭐ 4.5 / 5</span></div>
             </div>
           </div>
         )}
