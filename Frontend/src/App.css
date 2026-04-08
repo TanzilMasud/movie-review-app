@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #fafafa;
+  background: url('./assets/cover.jpg') center/cover no-repeat fixed, #fafafa;
   color: #1a1a1a;
   font-family: 'Segoe UI', sans-serif;
   min-height: 100vh;
@@ -160,8 +160,10 @@ body {
 }
 
 .header p {
-  color: #555;
-  font-size: 0.95rem;
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
 }
 
 /* Search Bar */
