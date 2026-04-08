@@ -292,7 +292,19 @@ def add_review():
     if not movie or not review:
         return jsonify({"error": "Movie and review are required"}), 400
 
-    sentiment = get_sentiment_by_rating(rating)
+    if model and vectorizer:
+        try:
+            review_vector = vectorizer.transform([review])
+            prediction = model.predict(review_vector)[0]
+            if prediction == 1:
+                sentiment = "Positive 😄"
+            else:
+                sentiment = "Negative 😡"
+        except Exception as e:
+            print(f"Prediction error: {e}")
+            sentiment = get_sentiment_by_rating(rating)
+    else:
+        sentiment = get_sentiment_by_rating(rating)
 
     try:
         conn = get_connection()
