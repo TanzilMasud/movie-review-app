@@ -75,15 +75,15 @@ def get_poster_tmdb(movie_name):
             "query": movie_name,
             "include_adult": False,
             "language": "en-US",
-            "page": 1
+            "page": 1,
+            "region": "IN"
         }
         res = requests.get(search_url, params=params, timeout=5)
         data = res.json()
 
         results = data.get("results", [])
         if results:
-            results_sorted = sorted(results, key=lambda x: x.get(
-                "popularity", 0), reverse=True)
+            results_sorted = sorted(results, key=lambda x: (x.get("original_language", "") == "hi", x.get("popularity", 0)), reverse=True)
             for movie in results_sorted:
                 poster_path = movie.get("poster_path")
                 if poster_path:
@@ -145,7 +145,8 @@ def get_movie_info(movie_name):
             "query": movie_name,
             "include_adult": False,
             "language": "en-US",
-            "page": 1
+            "page": 1,
+            "region": "IN"
         }
         res = requests.get(search_url, params=params, timeout=5)
         data = res.json()
@@ -153,8 +154,7 @@ def get_movie_info(movie_name):
 
         if results:
             # Get most popular result
-            movie = sorted(results, key=lambda x: x.get(
-                "popularity", 0), reverse=True)[0]
+            movie = sorted(results, key=lambda x: (x.get("original_language", "") == "hi", x.get("popularity", 0)), reverse=True)[0]
             movie_id = movie.get("id")
 
             # Get detailed info
