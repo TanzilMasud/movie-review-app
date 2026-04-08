@@ -1,15 +1,15 @@
-function Footer() {
+function Footer({ setView }) {
     return (
         <footer className="footer">
             <div className="footer-content">
-                <div className="footer-logo">🎬 CineReview</div>
+                <div className="footer-logo">🎬 ReelVibe</div>
                 <p className="footer-tagline">Your go-to place for honest movie reviews</p>
                 <div className="footer-links">
-                    <a href="#" className="footer-link">Home</a>
-                    <a href="#" className="footer-link">Top Rated</a>
-                    <a href="#" className="footer-link">About</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('home'); }} className="footer-link">Home</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('topRated'); }} className="footer-link">Top Rated</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('about'); }} className="footer-link">About</a>
                 </div>
-                <p className="footer-copy">© 2026 CineReview · Built by Tanzil Masud</p>
+                <p className="footer-copy">© 2026 ReelVibe · Built by Tanzil Masud</p>
             </div>
         </footer>
     );

@@ -26,6 +26,7 @@ function App() {
   const [searchedMovie, setSearchedMovie] = useState("");
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [view, setView] = useState("home");
 
   const handleSearch = (result, movie) => {
     setSearchResult(result);
@@ -59,24 +60,35 @@ function App() {
       </div>
 
       {/* Navbar */}
-      <Navbar />
+      <Navbar setView={setView} />
 
       {/* Main Content */}
       <div className="content">
-        {/* Header */}
-        <div className="header">
-          <h1>🎬 Movie Review System</h1>
-          <p>Search any movie and share your review</p>
-        </div>
+        {view === "home" && (
+          <div className="fade-in">
+            {/* Header */}
+            <div className="header">
+              <h1>🎬 ReelVibe</h1>
+              <p>Search any movie and share your review</p>
+            </div>
 
-        {/* Search */}
-        <SearchBar onSearch={handleSearch} onLoading={setIsLoading} />
+            {/* Search */}
+            <SearchBar onSearch={handleSearch} onLoading={setIsLoading} />
 
-        {/* Loading Skeleton */}
-        {isLoading && <Skeleton />}
+            {/* Loading Skeleton */}
+            {isLoading && <Skeleton />}
 
-        {/* Results */}
-        {!isLoading && searchResult && (
+            {/* Empty State */}
+            {!isLoading && !searchResult && (
+              <div className="empty-state fade-in">
+                <span className="empty-emoji">🍿</span>
+                <h2>Ready for a movie night?</h2>
+                <p>Type a movie name above to discover its vibe or share your own review.</p>
+              </div>
+            )}
+
+            {/* Results */}
+            {!isLoading && searchResult && (
           <div className="results">
 
             {/* CASE 1: Movie existed */}
@@ -159,12 +171,36 @@ function App() {
               </>
             )}
 
+            )}
+
+          </div>
+        )}
+
+        {view === "topRated" && (
+          <div className="top-rated-view fade-in">
+            <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>🏆 Top Rated Movies</h2>
+            <p style={{ color: '#555', marginBottom: '20px' }}>The highest rated films according to ReelVibe users.</p>
+            <div className="mock-grid" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>The Dark Knight</h3><span>⭐ 4.8 / 5</span></div>
+               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Inception</h3><span>⭐ 4.7 / 5</span></div>
+               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Interstellar</h3><span>⭐ 4.6 / 5</span></div>
+               <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Avengers: Endgame</h3><span>⭐ 4.5 / 5</span></div>
+            </div>
+          </div>
+        )}
+
+        {view === "about" && (
+          <div className="about-view fade-in review-card" style={{ flexDirection: 'column', gap: '15px' }}>
+            <h2 style={{ fontSize: '2rem', color: '#1a1a1a' }}>ℹ️ About ReelVibe</h2>
+            <p style={{ fontSize: '1.1rem', color: '#ff4b2b', fontWeight: 'bold' }}>Powered by Machine Learning</p>
+            <p style={{ fontSize: '1rem', color: '#444', lineHeight: '1.6' }}>ReelVibe isn't just another movie database. It's an intelligent sentiment analysis engine!</p>
+            <p style={{ fontSize: '1rem', color: '#444', lineHeight: '1.6' }}>When you leave a review, our trained Natural Language Processing model instantly analyzes your text to calculate whether your vibe is Positive or Negative. The more you review, the smarter it gets.</p>
           </div>
         )}
       </div>
 
       {/* Footer */}
-      <Footer />
+      <Footer setView={setView} />
 
     </div>
   );

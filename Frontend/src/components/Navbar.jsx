@@ -1,14 +1,14 @@
-function Navbar() {
+function Navbar({ setView }) {
     return (
         <nav className="navbar">
             <div className="navbar-content">
-                <div className="navbar-logo">
-                    🎬 <span>CineReview</span>
+                <div className="navbar-logo" onClick={() => setView('home')} style={{cursor: 'pointer'}}>
+                    🎬 <span>ReelVibe</span>
                 </div>
                 <div className="navbar-links">
-                    <a href="#" className="nav-link" onClick={() => window.scrollTo(0, 0)}>Home</a>
-                    <a href="#" className="nav-link">Top Rated</a>
-                    <a href="#" className="nav-link">About</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('home'); }} className="nav-link">Home</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('topRated'); }} className="nav-link">Top Rated</a>
+                    <a href="#" onClick={(e) => { e.preventDefault(); setView('about'); }} className="nav-link">About</a>
                 </div>
             </div>
         </nav>
