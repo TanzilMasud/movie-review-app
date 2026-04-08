@@ -68,7 +68,7 @@ function App() {
           <div className="fade-in">
             {/* Header */}
             <div className="header">
-              <h1>🎬 ReelVibe</h1>
+              <h1>🎬 Movie Review System</h1>
               <p>Search any movie and share your review</p>
             </div>
 
