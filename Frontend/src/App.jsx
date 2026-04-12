@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar";
 import ReviewCard from "./components/ReviewCard";
 import ReviewForm from "./components/ReviewForm";
@@ -27,6 +27,37 @@ function App() {
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [view, setView] = useState("home");
+  const [topMovies, setTopMovies] = useState([]);
+  const [loadingTop, setLoadingTop] = useState(false);
+
+  useEffect(() => {
+    if (view === "topRated" && topMovies.length === 0) {
+      setLoadingTop(true);
+      fetch("https://movie-review-app-bzkp.onrender.com/api/top_rated")
+        .then(res => res.json())
+        .then(data => {
+          setTopMovies(data || []);
+          setLoadingTop(false);
+        })
+        .catch(err => {
+          console.error(err);
+          setLoadingTop(false);
+        });
+    }
+  }, [view]);
+
+  const renderVibeMeter = (reviews) => {
+    if (!reviews || reviews.length === 0) return null;
+    const pos = reviews.filter(r => r.sentiment.includes("Positive")).length;
+    const score = Math.round((pos / reviews.length) * 100);
+    const color = score >= 50 ? "#28a745" : "#dc3545";
+    return (
+      <div className="fade-in" style={{ margin: "15px 0", padding: "12px", background: "rgba(255,255,255,0.9)", borderRadius: "8px", border: `2px solid ${color}`, textAlign: "center", boxShadow: "0 4px 10px rgba(0,0,0,0.1)" }}>
+        <h3 style={{ margin: 0, color: color }}>🤖 AI Vibe Meter: {score}% Positive Feedback</h3>
+        <p style={{ margin: "5px 0 0", fontSize: "0.9rem", color: "#666" }}>Based on {reviews.length} user reviews analyzed by NLP model</p>
+      </div>
+    );
+  };
 
   const handleSearch = (result, movie) => {
     setSearchResult(result);
@@ -99,6 +130,7 @@ function App() {
                       <strong>{searchResult.movie}</strong>
                     </div>
                     <MovieInfo info={searchResult.info} />
+                    {renderVibeMeter(searchResult.reviews)}
                     <ReviewCard
                       movie={searchResult.movie}
                       reviews={searchResult.reviews}
@@ -158,6 +190,7 @@ function App() {
                       <strong>{searchResult.movie}</strong>
                     </div>
                     <MovieInfo info={searchResult.info} />
+                    {renderVibeMeter(searchResult.reviews)}
                     <ReviewCard
                       movie={searchResult.movie}
                       reviews={searchResult.reviews}
@@ -180,10 +213,19 @@ function App() {
             <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>🏆 Top Rated Movies</h2>
             <p style={{ color: '#555', marginBottom: '20px' }}>The highest rated films according to ReelVibe users.</p>
             <div className="mock-grid" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>The Dark Knight</h3><span>⭐ 4.8 / 5</span></div>
-              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Inception</h3><span>⭐ 4.7 / 5</span></div>
-              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Interstellar</h3><span>⭐ 4.6 / 5</span></div>
-              <div className="review-card fade-in" style={{ justifyContent: 'space-between' }}><h3>Avengers: Endgame</h3><span>⭐ 4.5 / 5</span></div>
+              {loadingTop ? (
+                <Skeleton />
+              ) : (
+                topMovies.length > 0 ? topMovies.map((m, i) => (
+                  <div key={i} className="review-card fade-in" style={{ justifyContent: 'space-between', display: 'flex', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                      {m.poster && <img src={m.poster} alt={m.movie} style={{ width: '40px', height: '60px', borderRadius: '4px', objectFit: 'cover' }} />}
+                      <h3 style={{ margin: 0, fontSize: '1.2rem'}}>{m.movie}</h3>
+                    </div>
+                    <span style={{ fontSize: '1.1rem', fontWeight: 'bold' }}>⭐ {m.avg_rating} / 5</span>
+                  </div>
+                )) : <p>No top rated movies found.</p>
+              )}
             </div>
           </div>
         )}

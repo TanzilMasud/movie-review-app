@@ -279,6 +279,41 @@ def search_movie():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+# Top Rated Movies
+@app.route("/api/top_rated", methods=["GET"])
+def get_top_rated():
+    try:
+        conn = get_connection()
+        with conn.cursor() as cur:
+            # Group by movie, get average rating, pick top 10
+            cur.execute(
+                "SELECT movie, AVG(rating) as avg_rating, COUNT(*) as review_count "
+                "FROM reviews "
+                "GROUP BY movie "
+                "ORDER BY avg_rating DESC, review_count DESC LIMIT 10"
+            )
+            rows = cur.fetchall()
+        conn.close()
+
+        results = []
+        for row in rows:
+            movie_title = row[0]
+            avg_rating = round(row[1], 1)
+            # Safe poster fetch
+            poster = get_movie_poster(movie_title)
+            results.append({
+                "movie": movie_title,
+                "avg_rating": avg_rating,
+                "poster": poster
+            })
+            
+        return app.response_class(
+            response=json.dumps(results, ensure_ascii=False),
+            mimetype='application/json'
+        )
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # Add review
 @app.route("/api/review", methods=["POST"])
@@ -296,10 +331,17 @@ def add_review():
         try:
             review_vector = vectorizer.transform([review])
             prediction = model.predict(review_vector)[0]
+            try:
+                probs = model.predict_proba(review_vector)[0]
+                confidence = round(max(probs) * 100, 1)
+                conf_str = f" [AI Confidence: {confidence}%]"
+            except AttributeError:
+                conf_str = ""
+
             if prediction == 1:
-                sentiment = "Positive 😄"
+                sentiment = f"Positive 😄{conf_str}"
             else:
-                sentiment = "Negative 😡"
+                sentiment = f"Negative 😡{conf_str}"
         except Exception as e:
             print(f"Prediction error: {e}")
             sentiment = get_sentiment_by_rating(rating)
