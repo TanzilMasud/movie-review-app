@@ -8,8 +8,6 @@
 [![Python](https://img.shields.io/badge/Python-33.8%25-3776AB.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.4-F7931E.svg?style=for-the-badge&logo=scikit-learn)](https://scikit-learn.org/)
 
-**[🚀 Vist the Live Demo Here](YOUR_LIVE_LINK_HERE)** 
-
 *Experience real-time AI-powered movie review sentiment analysis with a seamless UI.*
 
 </div>
@@ -45,52 +43,7 @@ ReelVibe is a full-stack, data-driven machine learning project that transforms a
 ## 🚀 Live deployment
 
 ReelVibe is live! You can check out the working version here:
-👉 **[ReelVibe Live App]**
-movie-review-app-ashen.vercel.app
-
-## 💻 Running Locally
-
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-- Node.js (v18+)
-- Python (v3.9+)
-- PostgreSQL
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/TanzilMasud/movie-review-app.git
-   cd movie-review-app
-   ```
-
-2. **Setup the Backend**
-   ```bash
-   cd Backend
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   pip install -r requirements.txt
-   
-   # Add your .env file with necessary variables (e.g. Database URL)
-   ```
-
-3. **Run the Backend**
-   ```bash
-   flask run --port=5000
-   # or
-   python app.py
-   ```
-
-4. **Setup and Run the Frontend**
-   ```bash
-   cd ../Frontend
-   npm install
-   npm run dev
-   ```
-
-5. Open `http://localhost:5173` in your browser.
+👉 movie-review-app-ashen.vercel.app
 
 ## 📁 Project Structure
 
