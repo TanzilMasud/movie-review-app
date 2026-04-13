@@ -45,9 +45,8 @@ ReelVibe is a full-stack, data-driven machine learning project that transforms a
 ## 🚀 Live deployment
 
 ReelVibe is live! You can check out the working version here:
-👉 **[ReelVibe Live App]movie-review-app-ashen.vercel.app**
-
-*(Make sure to replace `YOUR_LIVE_LINK_HERE` with your actual Vercel/Render URL!)*
+👉 **[ReelVibe Live App]**
+movie-review-app-ashen.vercel.app
 
 ## 💻 Running Locally
 
