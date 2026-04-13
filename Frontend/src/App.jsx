@@ -30,6 +30,13 @@ function App() {
   const [topMovies, setTopMovies] = useState([]);
   const [loadingTop, setLoadingTop] = useState(false);
 
+  // WARM-UP PING
+  // Automatically trigger the backend to wake up from its free-tier sleep the exact second the user loads the frontend
+  useEffect(() => {
+    fetch("https://movie-review-app-bzkp.onrender.com/")
+      .catch((err) => console.log("Warm-up ping ignored:", err));
+  }, []);
+
   useEffect(() => {
     if (view === "topRated" && topMovies.length === 0) {
       setLoadingTop(true);
