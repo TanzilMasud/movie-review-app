@@ -8,8 +8,6 @@
 [![Python](https://img.shields.io/badge/Python-33.8%25-3776AB.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-1.4-F7931E.svg?style=for-the-badge&logo=scikit-learn)](https://scikit-learn.org/)
 
-*Experience real-time AI-powered movie review sentiment analysis with a seamless UI.*
-
 </div>
 
 <br>
@@ -25,20 +23,6 @@ ReelVibe is a full-stack, data-driven machine learning project that transforms a
 - **🎯 Confidence Percentages:** Exposed AI model confidence stats for every single review, giving users transparency into how the prediction was made.
 - **🎨 Dynamic & Premium UI:** The "Top Rated" page features dynamic, visually stunning backgrounds that adjust based on the cinematic atmosphere. 
 - **⚡ Fast & Modern Foundation:** Powered by a React / Vite frontend and a Flask RESTful API backend handling machine learning inference.
-
-## 🛠️ Technology Stack
-
-**Frontend:**
-- React (via Vite)
-- Vanilla CSS with a focus on modern glassmorphism and dynamic micro-animations
-- Axios for API communication
-
-**Backend:**
-- Python & Flask
-- `scikit-learn` for NLP/Machine Learning model
-- `joblib` for model serialization
-- PostgreSQL (via `psycopg2`) for robust data persistence
-- deployed with Gunicorn
 
 ## 🚀 Live deployment
 
@@ -61,12 +45,6 @@ movie-review-app/
 │   └── package.json         # Node dependencies
 └── notebooks/               # Jupyter Notebooks for NLP training & EDA
 ```
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/TanzilMasud/movie-review-app/issues).
-
----
 <div align="center">
-  Made with ❤️ by <a href="https://github.com/TanzilMasud">TanzilMasud</a>
+  Made with  by <a href="https://github.com/TanzilMasud">TanzilMasud</a>
 </div>
